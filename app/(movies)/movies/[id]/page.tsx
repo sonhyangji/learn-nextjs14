@@ -2,6 +2,7 @@ import MovieInfos, { getMovie } from "@/components/movie-infos";
 import MovieVideos from "@/components/movie-videos";
 import { Suspense } from "react";
 import styles from "@/styles/movie.module.css";
+
 interface MoviePageProps {
   params: {
       id: string;
@@ -19,9 +20,7 @@ export async function generateMetadata({params:{id}} : MoviePageProps) {
   };
 }
 
-export default async function MoviePage({ params, searchParams }: MoviePageProps) {
-  const id = params.id;
-  
+export default async function MoviePage({ params: { id } }: MoviePageProps) {
   return (
     <div className={styles.movie}>
       <div>
