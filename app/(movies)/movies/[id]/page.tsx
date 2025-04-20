@@ -3,16 +3,10 @@ import MovieVideos from "@/components/movie-videos";
 import { Suspense } from "react";
 import styles from "@/styles/movie.module.css";
 
-type MoviePageProps = {
-  params: {
-    id: string;
-  };
-  searchParams?: {
-    [key: string]: string | string[] | undefined;
-  };
-}
+type IParams = Promise<{ id: string }>;
 
-export async function generateMetadata({params:{id}} : MoviePageProps) {
+export async function generateMetadata(props: { params: IParams }) {
+  const { id } = await props.params;
   const movie = await getMovie(id);
   return {
     title: movie.title,
@@ -20,7 +14,8 @@ export async function generateMetadata({params:{id}} : MoviePageProps) {
   };
 }
 
-export default function MoviePage({ params: { id } }: MoviePageProps) {
+export default async function MoviePage(props: { params: IParams }) {
+  const { id } = await props.params;
   return (
     <div className={styles.movie}>
       <div>
