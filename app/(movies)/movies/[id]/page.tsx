@@ -1,16 +1,37 @@
-
+import MovieInfos, { getMovie } from "@/components/movie-infos";
+import MovieVideos from "@/components/movie-videos";
+import { Suspense } from "react";
+import styles from "@/styles/movie.module.css";
 interface MoviePageProps {
-    params: {
-        id: string;
-    };
-    searchParams: {
-        [key: string]: string | string[] | undefined;
-    };
+  params: {
+      id: string;
+  };
+  searchParams: {
+      [key: string]: string | string[] | undefined;
+  };
 }
-export default function MoviePage({ params, searchParams }: MoviePageProps) {
+
+export async function generateMetadata({params:{id}} : MoviePageProps) {
+  const movie = await getMovie(id);
+  return {
+    title: movie.title,
+    description: movie.overview,
+  };
+}
+
+export default async function MoviePage({ params, searchParams }: MoviePageProps) {
+  const id = params.id;
+  
   return (
-    <div>
-      <h1>Movie Page {params.id} {searchParams.title}</h1>
+    <div className={styles.movie}>
+      <div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <MovieInfos id={id} />
+        </Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <MovieVideos id={id} />
+        </Suspense>
+      </div>
     </div>
   );
 }

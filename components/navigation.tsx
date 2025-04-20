@@ -1,28 +1,18 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import styles from "@/styles/navigation.module.css";
+
 export default function Navigation() {
   const pathname = usePathname();
   return (
-    <nav>
+    <nav className={styles.nav}>
       <ul>
         <li>
-          <Link href="/" className={pathname === "/" ? "active" : ""}>
-            Home {pathname === "/" ? "👈" : ""}
-          </Link>
+          <Link href="/">Home</Link> {pathname === "/" ? "🔥" : ""}
         </li>
         <li>
-          <Link href="/about" className={pathname === "/about" ? "active" : ""}>
-            About {pathname === "/about" ? "👈" : ""}
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/contact"
-            className={pathname === "/contact" ? "active" : ""}
-          >
-            Contact {pathname === "/contact" ? "👈" : ""}
-          </Link>
+          <Link href="/about-us">About Us</Link> {pathname === "/about-us" ? "🔥" : ""}
         </li>
       </ul>
     </nav>
