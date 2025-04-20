@@ -3,12 +3,12 @@ import MovieVideos from "@/components/movie-videos";
 import { Suspense } from "react";
 import styles from "@/styles/movie.module.css";
 
-interface MoviePageProps {
+type MoviePageProps = {
   params: {
-      id: string;
+    id: string;
   };
-  searchParams: {
-      [key: string]: string | string[] | undefined;
+  searchParams?: {
+    [key: string]: string | string[] | undefined;
   };
 }
 
@@ -20,7 +20,7 @@ export async function generateMetadata({params:{id}} : MoviePageProps) {
   };
 }
 
-export default async function MoviePage({ params: { id } }: MoviePageProps) {
+export default function MoviePage({ params: { id } }: MoviePageProps) {
   return (
     <div className={styles.movie}>
       <div>
